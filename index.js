@@ -37,6 +37,7 @@ class Player {
         this.draw()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+
         /*Keeps character from falling past canvas height - stops at bottom of canvas*/
         if (this.position.y + this.height + this.velocity.y <= canvas.height)
         this.velocity.y += gravity
@@ -46,7 +47,6 @@ class Player {
 
 /*Implements player class */
 const player = new Player()
-player.update()
 
 /* defines the keys to monitor */
 const keys = {
@@ -66,7 +66,9 @@ function animate() {
 
     if (keys.right.pressed) {
         player.velocity.x = 5
-    }
+    } else if (keys.left.pressed) {
+        player.velocity.x = -5 //sets characters velocity to negative 5 pushing it in the leftwards direction 
+    } else player.velocity.x = 0 //stops character from continuing to go right/left after 'keyup'
 }
 
 animate()
