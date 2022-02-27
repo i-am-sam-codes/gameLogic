@@ -45,8 +45,23 @@ class Player {
     }
 }
 
+class Platform {
+    constructor() {
+        this.position = {
+            x:200,
+            y:100
+        }
+        this.width = 200
+        this.height = 20
+    }
+    draw() {
+        c.fillStyle = 'blue'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
 /*Implements player class */
 const player = new Player()
+const platform = new Platform()
 
 /* defines the keys to monitor */
 const keys = {
@@ -63,12 +78,19 @@ function animate() {
     /*clears canvas takes everything off but allows draw to be called right after - maintaining players shape*/
     c.clearRect(0, 0, canvas.width, canvas.height)
     player.update()
+    //creates platform
+    platform.draw()
 
     if (keys.right.pressed) {
         player.velocity.x = 5
     } else if (keys.left.pressed) {
         player.velocity.x = -5 //sets characters velocity to negative 5 pushing it in the leftwards direction 
     } else player.velocity.x = 0 //stops character from continuing to go right/left after 'keyup'
+    
+    //platform collision detection
+    if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
+        player.velocity.y = 0
+    }
 }
 
 animate()
@@ -95,7 +117,7 @@ window.addEventListener('keydown', ({ keyCode }) => {
             player.velocity.y -= 20
             break
     }
-    console.log(keys.right.pressed)
+    
 })
 
 /* keyup event listener */
@@ -118,5 +140,5 @@ window.addEventListener('keyup', ({ keyCode }) => {
             player.velocity.y -= 20
             break
     }
-    console.log(keys.right.pressed)
+    
 })
