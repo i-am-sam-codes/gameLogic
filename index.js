@@ -81,11 +81,18 @@ function animate() {
     //creates platform
     platform.draw()
 
-    if (keys.right.pressed) {
+    if (keys.right.pressed && player.position.x < 400) {
         player.velocity.x = 5
-    } else if (keys.left.pressed) {
+    } else if (keys.left.pressed && player.position.x > 100) {
         player.velocity.x = -5 //sets characters velocity to negative 5 pushing it in the leftwards direction 
-    } else player.velocity.x = 0 //stops character from continuing to go right/left after 'keyup'
+    } else {
+        player.velocity.x = 0
+
+        if (keys.right.pressed) {
+            platform.position.x -= 5
+        }
+    
+    }//stops character from continuing to go right/left after 'keyup'
     
     //platform collision detection
     if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.velocity.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
