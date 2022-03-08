@@ -90,6 +90,8 @@ function animate() {
 
         if (keys.right.pressed) {
             platform.position.x -= 5
+        }else if (keys.left.pressed) {
+            platform.position.x += 5
         }
     
     }//stops character from continuing to go right/left after 'keyup'
