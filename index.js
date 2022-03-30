@@ -75,6 +75,9 @@ const keys = {
         pressed : false
     }
 }
+
+let scrollOffSet =0;
+
 /*animation loop to get player moving*/
 function animate() {
     requestAnimationFrame(animate)
